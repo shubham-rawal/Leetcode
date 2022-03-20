@@ -9,23 +9,43 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+class HDPair{
+public: 
+    int height;
+    int diameter;
+};
+
 class Solution {
 public:
-    //Time Complexity of this solution is O(N^2)
-    int height(TreeNode* root){
+    //Time Complexity of this solution is O(N)
+    HDPair calcDiameter(TreeNode* root){
+        HDPair p;
         //base case
-        if(root == NULL)    return 0;
+        if(root == NULL){
+            p.height = p.diameter = 0;
+            return p;
+        }
         
-        return max(height(root->left), height(root->right)) + 1;
+        //rec case
+        HDPair Left = calcDiameter(root->left);
+        HDPair Right = calcDiameter(root->right);
+        
+        //for current node height
+        p.height = max(Left.height, Right.height) + 1;
+        
+        //for current node diameter
+        int D1 = Left.height + Right.height;
+        int D2 = Left.diameter;
+        int D3 = Right.diameter;
+        
+        p.diameter = max(D1, max(D2, D3));
+        
+        return p;
     }
     int diameterOfBinaryTree(TreeNode* root) {
-        //base case
-        if(root == NULL)    return 0;
-        
-        int D1 = height(root->left) + height(root->right);
-        int D2 = diameterOfBinaryTree(root->left);
-        int D3 = diameterOfBinaryTree(root->right);
-        
-        return max(D1, max(D2, D3));
+        return calcDiameter(root).diameter;
     }
 };
+
+
