@@ -25,6 +25,7 @@ public:
         
         for(int k = 0; k<m+n; k++){
             nums1[k] = res[k];
+            
         }
     }
 };
