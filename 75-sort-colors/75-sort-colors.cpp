@@ -1,9 +1,11 @@
 class Solution {
 public:
     void sortColors(vector<int>& nums) {
+        //creating the freq array
         vector<int> freq(3, 0);
         
-        for(auto x : nums){
+        //filling the freq array
+        for(auto x: nums){
             freq[x]++;
         }
         
@@ -13,5 +15,6 @@ public:
                 nums[idx++] = i;
             }
         }
+    
     }
 };
